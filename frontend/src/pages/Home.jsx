@@ -13,7 +13,7 @@ function Home() {
   const fetchItems = async (token) => {
     try {
       console.log("Fetching items with token:", token);
-      const res = await axios.get("http://localhost:8080/api/items", {
+      const res = await axios.get("https://household-pantry-expiry-app.onrender.com/api/items", {
         headers: { token },
       });
       console.log("Fetched items:", res.data.data);
