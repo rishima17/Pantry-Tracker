@@ -21,7 +21,7 @@ function Register() {
 
     try {
       const res = await axios.post(
-        "http://localhost:8080/api/users/register",
+        "https://household-pantry-expiry-app.onrender.com/api/users/register",
         formData
       );
       localStorage.setItem("token", res.data.token); // store JWT
