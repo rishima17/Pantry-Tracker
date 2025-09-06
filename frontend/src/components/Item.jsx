@@ -21,7 +21,7 @@ function Item({ item, onUpdate }) {
   const handleUpdate = async () => {
     try {
       await axios.put(
-        `http://localhost:8080/api/items/update/${item._id}`,
+        `https://household-pantry-expiry-app.onrender.com/api/items/update/${item._id}`,
         formData,
         { headers: { token } }
       );
