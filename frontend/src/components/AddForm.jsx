@@ -25,7 +25,7 @@ function AddForm({ ItemAdded }) {
 
     try {
       const res = await axios.post(
-        "http://localhost:8080/api/items/add",
+        "https://household-pantry-expiry-app.onrender.com/api/items/add",
         formData,
         {
           headers: { token },

@@ -11,7 +11,7 @@ function ExpiringSoon() {
     const token = localStorage.getItem("token"); // get JWT token
     try {
       const res = await axios.get(
-        "http://localhost:8080/api/items/expiring/soon",
+        "https://household-pantry-expiry-app.onrender.com/api/items/expiring/soon",
         { headers: { token } }
       );
       setItems(res.data.data); // access the data array
