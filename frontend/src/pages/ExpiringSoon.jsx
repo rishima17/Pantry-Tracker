@@ -27,19 +27,30 @@ function ExpiringSoon() {
   }, []);
 
   return (
-    <div className="p-6">
-      <h1 className="text-2xl font-bold mb-4 text-red-600">Expiring Soon ⚠️</h1>
+    <div className="min-h-screen bg-gradient-to-br from-red-600 via-orange-600 to-yellow-500 p-8 flex flex-col items-center">
+      {/* Heading */}
+      <h1 className="text-4xl font-extrabold mb-6 text-white drop-shadow-lg text-center">
+        Expiring Soon ⚠️
+      </h1>
 
+      {/* Loader */}
       {loading ? (
-        <p className="text-gray-600">Loading...</p>
+        <p className="text-white/90 text-lg animate-pulse">
+          Checking your pantry...
+        </p>
       ) : items.length > 0 ? (
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 w-full max-w-6xl">
           {items.map((item) => (
             <Item key={item._id} item={item} onUpdate={fetchExpiring} />
           ))}
         </div>
       ) : (
-        <p className="text-gray-600">No items expiring in the next 3 days 🎉</p>
+        <div className="bg-black/30 backdrop-blur-md p-6 rounded-2xl shadow-xl text-center text-white max-w-md">
+          <p className="text-xl font-semibold">🎉 No items expiring soon!</p>
+          <p className="text-sm opacity-80">
+            Your pantry is safe for now. Keep tracking!
+          </p>
+        </div>
       )}
     </div>
   );

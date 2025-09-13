@@ -44,53 +44,54 @@ function Item({ item, onUpdate }) {
   };
 
   return (
-    <div className="bg-white p-4 rounded-lg shadow-md">
+    <div className="bg-black/40 backdrop-blur-lg p-6 rounded-2xl shadow-lg text-white transition hover:scale-[1.02] hover:shadow-2xl">
       {isEditing ? (
-        <div className="space-y-2">
+        <div className="space-y-3">
           <input
             type="text"
             name="name"
             value={formData.name}
             onChange={handleChange}
-            className="border p-1 rounded w-full"
+            className="border border-gray-400 p-2 rounded w-full bg-transparent text-white placeholder-gray-300"
           />
           <input
             type="number"
             name="quantity"
             value={formData.quantity}
             onChange={handleChange}
-            className="border p-1 rounded w-full"
+            className="border border-gray-400 p-2 rounded w-full bg-transparent text-white placeholder-gray-300"
           />
           <input
             type="text"
             name="category"
             value={formData.category}
             onChange={handleChange}
-            className="border p-1 rounded w-full"
+            className="border border-gray-400 p-2 rounded w-full bg-transparent text-white placeholder-gray-300"
           />
           <input
             type="date"
             name="expiryDate"
             value={formData.expiryDate}
             onChange={handleChange}
-            className="border p-1 rounded w-full"
+            className="border border-gray-400 p-2 rounded w-full bg-transparent text-white"
           />
           <textarea
             name="note"
             value={formData.note}
             onChange={handleChange}
-            className="border p-1 rounded w-full"
+            className="border border-gray-400 p-2 rounded w-full bg-transparent text-white placeholder-gray-300"
           ></textarea>
+
           <div className="flex space-x-2">
             <button
               onClick={handleUpdate}
-              className="bg-green-500 text-white px-2 py-1 rounded"
+              className="bg-green-500 hover:bg-green-600 text-white px-3 py-1 rounded-lg transition"
             >
               Save
             </button>
             <button
               onClick={() => setIsEditing(false)}
-              className="bg-gray-400 text-white px-2 py-1 rounded"
+              className="bg-gray-500 hover:bg-gray-600 text-white px-3 py-1 rounded-lg transition"
             >
               Cancel
             </button>
@@ -98,24 +99,24 @@ function Item({ item, onUpdate }) {
         </div>
       ) : (
         <>
-          <h2 className="text-lg font-bold">{item.name}</h2>
-          <p className="text-sm text-gray-600">Qty: {item.quantity}</p>
-          <p className="text-sm text-gray-600">Category: {item.category}</p>
-          <p className="text-sm text-gray-600">Expires: {expiryDate}</p>
+          <h2 className="text-xl font-bold">{item.name}</h2>
+          <p className="text-sm text-gray-200">Qty: {item.quantity}</p>
+          <p className="text-sm text-gray-200">Category: {item.category}</p>
+          <p className="text-sm text-gray-200">Expires: {expiryDate}</p>
           {item.note && (
-            <p className="text-sm italic text-gray-500">{item.note}</p>
+            <p className="text-sm italic text-gray-300">{item.note}</p>
           )}
 
-          <div className="flex space-x-2 mt-2">
+          <div className="flex space-x-3 mt-3">
             <button
               onClick={() => setIsEditing(true)}
-              className="bg-blue-500 text-white px-2 py-1 rounded"
+              className="bg-blue-500 hover:bg-blue-600 text-white px-3 py-1 rounded-lg transition"
             >
               Edit
             </button>
             <button
               onClick={handleDelete}
-              className="bg-red-500 text-white px-2 py-1 rounded"
+              className="bg-red-500 hover:bg-red-600 text-white px-3 py-1 rounded-lg transition"
             >
               Delete
             </button>
