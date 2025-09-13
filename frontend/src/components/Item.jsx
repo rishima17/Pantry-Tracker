@@ -44,7 +44,7 @@ function Item({ item, onUpdate }) {
   };
 
   return (
-    <div className="bg-black/40 backdrop-blur-lg p-6 rounded-2xl shadow-lg text-white transition hover:scale-[1.02] hover:shadow-2xl">
+    <div className="bg-black/40 backdrop-blur-lg p-6 rounded-2xl shadow-lg text-black transition hover:scale-[1.02] hover:shadow-2xl">
       {isEditing ? (
         <div className="space-y-3">
           <input
@@ -52,14 +52,14 @@ function Item({ item, onUpdate }) {
             name="name"
             value={formData.name}
             onChange={handleChange}
-            className="border border-gray-400 p-2 rounded w-full bg-transparent text-white placeholder-gray-300"
+            className="border border-gray-400 p-2 rounded w-full bg-transparent text-black placeholder-gray-300"
           />
           <input
             type="number"
             name="quantity"
             value={formData.quantity}
             onChange={handleChange}
-            className="border border-gray-400 p-2 rounded w-full bg-transparent text-white placeholder-gray-300"
+            className="border border-gray-400 p-2 rounded w-full bg-transparent text-black placeholder-gray-300"
           />
           <input
             type="text"
@@ -73,25 +73,25 @@ function Item({ item, onUpdate }) {
             name="expiryDate"
             value={formData.expiryDate}
             onChange={handleChange}
-            className="border border-gray-400 p-2 rounded w-full bg-transparent text-white"
+            className="border border-gray-400 p-2 rounded w-full bg-transparent text-black"
           />
           <textarea
             name="note"
             value={formData.note}
             onChange={handleChange}
-            className="border border-gray-400 p-2 rounded w-full bg-transparent text-white placeholder-gray-300"
+            className="border border-gray-400 p-2 rounded w-full bg-transparent text-black placeholder-gray-300"
           ></textarea>
 
           <div className="flex space-x-2">
             <button
               onClick={handleUpdate}
-              className="bg-green-500 hover:bg-green-600 text-white px-3 py-1 rounded-lg transition"
+              className="bg-green-500 hover:bg-green-600 text-black px-3 py-1 rounded-lg transition"
             >
               Save
             </button>
             <button
               onClick={() => setIsEditing(false)}
-              className="bg-gray-500 hover:bg-gray-600 text-white px-3 py-1 rounded-lg transition"
+              className="bg-gray-500 hover:bg-gray-600 text-black px-3 py-1 rounded-lg transition"
             >
               Cancel
             </button>
