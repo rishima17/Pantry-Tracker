@@ -27,15 +27,15 @@ function ExpiringSoon() {
   }, []);
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-red-600 via-orange-600 to-yellow-500 p-8 flex flex-col items-center">
+    <div className="min-h-screen bg-gradient-to-br from-yellow-100 via-orange-100 to-pink-100 p-8 flex flex-col items-center">
       {/* Heading */}
-      <h1 className="text-4xl font-extrabold mb-6 text-white drop-shadow-lg text-center">
+      <h1 className="text-4xl font-extrabold mb-6 text-gray-800 drop-shadow-lg text-center">
         Expiring Soon ⚠️
       </h1>
 
       {/* Loader */}
       {loading ? (
-        <p className="text-white/90 text-lg animate-pulse">
+        <p className="text-gray-700 text-lg animate-pulse">
           Checking your pantry...
         </p>
       ) : items.length > 0 ? (
@@ -45,7 +45,7 @@ function ExpiringSoon() {
           ))}
         </div>
       ) : (
-        <div className="bg-black/30 backdrop-blur-md p-6 rounded-2xl shadow-xl text-center text-white max-w-md">
+        <div className="bg-white/70 backdrop-blur-md p-6 rounded-2xl shadow-xl text-center text-gray-800 max-w-md">
           <p className="text-xl font-semibold">🎉 No items expiring soon!</p>
           <p className="text-sm opacity-80">
             Your pantry is safe for now. Keep tracking!
