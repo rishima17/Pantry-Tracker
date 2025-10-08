@@ -9,6 +9,7 @@ function AddForm({ ItemAdded }) {
     category: "",
     note: "",
   });
+  const [loading, setLoading] = useState(false);
 
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -16,7 +17,7 @@ function AddForm({ ItemAdded }) {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const token = localStorage.getItem("token"); // Get JWT token
+    const token = localStorage.getItem("token");
 
     if (!token) {
       alert("You must be logged in to add items!");
@@ -24,16 +25,14 @@ function AddForm({ ItemAdded }) {
     }
 
     try {
+      setLoading(true);
       const res = await axios.post(
         "https://household-pantry-expiry-app.onrender.com/api/items/add",
         formData,
-        {
-          headers: { token },
-        }
+        { headers: { token } }
       );
-      console.log("Item added:", res.data);
 
-      // Reset form after successful addition
+      console.log("Item added:", res.data);
       setFormData({
         name: "",
         quantity: 1,
@@ -41,15 +40,16 @@ function AddForm({ ItemAdded }) {
         category: "",
         note: "",
       });
-
-      // Refresh items in Home page
       ItemAdded();
+      alert("Item added successfully ✅");
     } catch (err) {
       console.error("Error adding item:", err);
       alert(
         err.response?.data?.message ||
           "Failed to add item. Please check your input."
       );
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -61,13 +61,13 @@ function AddForm({ ItemAdded }) {
           <img
             src="/pantry.png"
             alt="Pantry"
-            className="w-40 h-32 object-contain drop-shadow-lg"
+            className="w-[300px] h-[300px] md:h-[400px] object-contain drop-shadow-lg"
           />
 
           {/* Form */}
           <form
             onSubmit={handleSubmit}
-            className="flex-1 grid grid-cols-1 sm:grid-cols-2 gap-4"
+            className="flex-1 grid grid-cols-1 sm:grid-cols-2 gap-4 w-full"
           >
             <input
               type="text"
@@ -114,9 +114,12 @@ function AddForm({ ItemAdded }) {
 
             <button
               type="submit"
-              className="bg-gradient-to-r from-pink-500 to-purple-600 text-white py-3 rounded-lg hover:scale-105 transition transform font-semibold shadow-lg sm:col-span-2"
+              disabled={loading}
+              className={`bg-gradient-to-r from-pink-500 to-purple-600 text-white py-3 rounded-lg font-semibold shadow-lg sm:col-span-2 transition transform ${
+                loading ? "opacity-60 cursor-not-allowed" : "hover:scale-105"
+              }`}
             >
-              ➕ Add Item
+              {loading ? "Adding..." : "➕ Add Item"}
             </button>
           </form>
         </div>
