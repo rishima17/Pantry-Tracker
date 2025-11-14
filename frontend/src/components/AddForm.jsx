@@ -19,11 +19,6 @@ function AddForm({ ItemAdded }) {
     e.preventDefault();
     const token = localStorage.getItem("token");
 
-    if (!token) {
-      alert("You must be logged in to add items!");
-      return;
-    }
-
     try {
       setLoading(true);
       const res = await axios.post(
@@ -33,6 +28,7 @@ function AddForm({ ItemAdded }) {
       );
 
       console.log("Item added:", res.data);
+
       setFormData({
         name: "",
         quantity: 1,
@@ -40,6 +36,7 @@ function AddForm({ ItemAdded }) {
         category: "",
         note: "",
       });
+
       ItemAdded();
       alert("Item added successfully ✅");
     } catch (err) {
@@ -54,47 +51,50 @@ function AddForm({ ItemAdded }) {
   };
 
   return (
-    <div className="h-full w-full flex items-center justify-center bg-gradient-to-br from-purple-600 via-indigo-600 to-blue-600 p-6 rounded-3xl">
-      <div className="bg-white/20 backdrop-blur-lg p-8 rounded-3xl shadow-2xl w-full">
-        <div className="flex flex-col md:flex-row items-center gap-8">
-          {/* Image */}
+    <div className="h-full w-full flex items-center justify-center p-6 rounded-3xl">
+      <div className="bg-[#0f0f15]/80 backdrop-blur-xl border border-[#1b1b25] p-8 rounded-3xl shadow-[0_0_25px_rgba(126,255,245,0.12)] w-full">
+        <div className="flex flex-col md:flex-row items-center gap-10">
+          {/* Illustration */}
           <img
             src="/pantry.png"
             alt="Pantry"
-            className="w-[300px] h-[300px] md:h-[400px] object-contain drop-shadow-lg"
+            className="w-[250px] h-[250px] md:h-[330px] object-contain opacity-80 drop-shadow-[0_0_20px_rgba(126,255,245,0.3)]"
           />
 
-          {/* Form */}
+          {/* FORM */}
           <form
             onSubmit={handleSubmit}
-            className="flex-1 grid grid-cols-1 sm:grid-cols-2 gap-4 w-full"
+            className="flex-1 grid grid-cols-1 sm:grid-cols-2 gap-5 w-full"
           >
             <input
               type="text"
               name="name"
-              placeholder="Item name"
+              placeholder="Item Name"
               value={formData.name}
               onChange={handleChange}
               required
-              className="border border-white/30 bg-white/30 text-white placeholder-gray-200 p-3 rounded-lg focus:outline-none focus:ring-2 focus:ring-pink-400"
+              className="border border-[#1b1b25] bg-[#151521]/80 text-[#d8fdfb] placeholder-gray-500 p-3 rounded-xl focus:outline-none focus:ring-2 focus:ring-[#7efff5]"
             />
+
             <input
               type="number"
               name="quantity"
-              placeholder="Qty"
+              placeholder="Quantity"
+              min="1"
               value={formData.quantity}
               onChange={handleChange}
-              min="1"
-              className="border border-white/30 bg-white/30 text-white placeholder-gray-200 p-3 rounded-lg focus:outline-none focus:ring-2 focus:ring-pink-400"
+              className="border border-[#1b1b25] bg-[#151521]/80 text-[#d8fdfb] placeholder-gray-500 p-3 rounded-xl focus:outline-none focus:ring-2 focus:ring-[#7efff5]"
             />
+
             <input
               type="date"
               name="expiryDate"
               value={formData.expiryDate}
               onChange={handleChange}
               required
-              className="border border-white/30 bg-white/30 text-white placeholder-gray-200 p-3 rounded-lg focus:outline-none focus:ring-2 focus:ring-pink-400"
+              className="border border-[#1b1b25] bg-[#151521]/80 text-[#d8fdfb] placeholder-gray-500 p-3 rounded-xl focus:outline-none focus:ring-2 focus:ring-[#7efff5]"
             />
+
             <input
               type="text"
               name="category"
@@ -102,21 +102,24 @@ function AddForm({ ItemAdded }) {
               value={formData.category}
               onChange={handleChange}
               required
-              className="border border-white/30 bg-white/30 text-white placeholder-gray-200 p-3 rounded-lg focus:outline-none focus:ring-2 focus:ring-pink-400"
+              className="border border-[#1b1b25] bg-[#151521]/80 text-[#d8fdfb] placeholder-gray-500 p-3 rounded-xl focus:outline-none focus:ring-2 focus:ring-[#7efff5]"
             />
+
             <textarea
               name="note"
-              placeholder="Note (optional)"
+              placeholder="Add a description or note (optional)"
               value={formData.note}
               onChange={handleChange}
-              className="border border-white/30 bg-white/30 text-white placeholder-gray-200 p-3 rounded-lg sm:col-span-2 focus:outline-none focus:ring-2 focus:ring-pink-400"
+              className="border border-[#1b1b25] bg-[#151521]/80 text-[#d8fdfb] placeholder-gray-500 p-3 rounded-xl sm:col-span-2 focus:outline-none focus:ring-2 focus:ring-[#7efff5]"
             ></textarea>
 
             <button
               type="submit"
               disabled={loading}
-              className={`bg-gradient-to-r from-pink-500 to-purple-600 text-white py-3 rounded-lg font-semibold shadow-lg sm:col-span-2 transition transform ${
-                loading ? "opacity-60 cursor-not-allowed" : "hover:scale-105"
+              className={`bg-[#0b0b12] border border-[#7efff5] text-[#7efff5] p-3 rounded-xl font-semibold shadow-[0_0_15px_rgba(126,255,245,0.4)] sm:col-span-2 transition-all ${
+                loading
+                  ? "opacity-60 cursor-not-allowed"
+                  : "hover:scale-105 hover:shadow-[0_0_25px_rgba(126,255,245,0.6)]"
               }`}
             >
               {loading ? "Adding..." : "➕ Add Item"}
