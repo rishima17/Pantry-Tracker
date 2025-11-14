@@ -1,117 +1,110 @@
-import React from "react";
-import { Link } from "react-router-dom";
+import { useEffect, useState } from "react";
+import axios from "axios";
+import Item from "../components/Item";
+import { AlertTriangle } from "lucide-react";
+import { useNavigate } from "react-router-dom";
 
-function Home() {
+function ExpiringSoon() {
+  const [items, setItems] = useState([]);
+  const [loading, setLoading] = useState(true);
+
+  const navigate = useNavigate();
+
+  // 🔐 LOGIN CHECK
+  useEffect(() => {
+    const token = localStorage.getItem("token");
+    if (!token) {
+      navigate("/register");
+    }
+  }, [navigate]);
+
+  const fetchExpiring = async () => {
+    const token = localStorage.getItem("token");
+
+    try {
+      const res = await axios.get(
+        "https://household-pantry-expiry-app.onrender.com/api/items/expiring/soon",
+        { headers: { token } }
+      );
+      setItems(res.data.data);
+    } catch (err) {
+      console.error("Error fetching expiring items:", err);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  useEffect(() => {
+    fetchExpiring();
+  }, []);
+
   return (
-    <div className="min-h-screen bg-[#05070d] text-white overflow-hidden relative">
-      {/* 🔥 Neon Blurry Background Orbs */}
-      <div className="absolute w-[600px] h-[600px] bg-[#00FFE0]/20 blur-[200px] rounded-full -top-20 -left-20"></div>
-      <div className="absolute w-[500px] h-[500px] bg-[#9d00ff]/20 blur-[220px] rounded-full bottom-0 right-0"></div>
-
-      {/* 🟦 Hero Section */}
-      <div className="flex flex-col items-center justify-center text-center px-6 pt-32 pb-20 relative z-20">
-        <h1 className="text-5xl md:text-6xl font-extrabold text-[#00FFE0] drop-shadow-[0_0_15px_#00FFE0]">
-          Pantry Tracker
+    <div className="min-h-screen bg-[#05080d] text-white px-6 py-10">
+      {/* Heading */}
+      <div className="text-center mb-10">
+        <h1 className="text-4xl md:text-5xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-[#FF3B3B] to-[#FFA500] drop-shadow-[0_0_15px_#FF3B3B]">
+          Expiring Soon
         </h1>
-
-        <p className="text-gray-300 mt-5 max-w-2xl text-lg">
-          Track, organize, and stay ahead of expiration dates with your smart,
-          neon-themed pantry management system.
+        <p className="text-gray-300 mt-2">
+          Items that need your attention before they expire!
         </p>
-
-        <div className="mt-8 flex gap-5">
-          <Link
-            to="/pantry"
-            className="px-7 py-3 bg-gradient-to-r from-[#00FFE0] to-[#00B2FF] rounded-xl text-black font-semibold 
-                       hover:scale-105 transition-transform shadow-[0_0_15px_#00FFE060]"
-          >
-            View Pantry
-          </Link>
-
-          <Link
-            to="/addItem"
-            className="px-7 py-3 bg-gradient-to-r from-[#9d00ff] to-[#d000ff] rounded-xl text-white font-semibold 
-                       hover:scale-105 transition-transform shadow-[0_0_15px_#9d00ff60]"
-          >
-            Add Items
-          </Link>
-        </div>
-
-        {/* Illustration */}
-        <img
-          src="https://cdn-icons-png.flaticon.com/512/706/706164.png"
-          alt="Pantry Illustration"
-          className="w-60 md:w-72 mt-12 drop-shadow-[0_0_25px_#00FFE040]"
-        />
       </div>
 
-      {/* 🔶 Feature Section */}
-      <section className="relative z-20 px-8 pb-32">
-        <h2 className="text-3xl font-bold text-center text-[#00FFE0] drop-shadow-[0_0_10px_#00FFE0] mb-10">
-          Why Use Pantry Tracker?
-        </h2>
-
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-6xl mx-auto">
-          {/* Card 1 */}
-          <div
-            className="bg-[#0d1218]/40 backdrop-blur-xl p-6 rounded-2xl border border-[#00FFE0]/20 
-                          shadow-[0_0_20px_#00FFE020] hover:shadow-[0_0_25px_#00FFE040] transition-all"
-          >
-            <img
-              src="https://cdn-icons-png.flaticon.com/512/992/992700.png"
-              className="w-20 mx-auto mb-4 drop-shadow-[0_0_10px_#00FFE0]"
-              alt="track"
-            />
-            <h3 className="text-xl font-semibold text-[#00FFE0] mb-2 text-center">
-              Track Expiry Dates
-            </h3>
-            <p className="text-gray-300 text-center">
-              Never waste groceries again. Keep track of all items with their
-              expiration dates in one place.
-            </p>
-          </div>
-
-          {/* Card 2 */}
-          <div
-            className="bg-[#0d1218]/40 backdrop-blur-xl p-6 rounded-2xl border border-[#9d00ff]/20 
-                          shadow-[0_0_20px_#9d00ff20] hover:shadow-[0_0_25px_#9d00ff40] transition-all"
-          >
-            <img
-              src="https://cdn-icons-png.flaticon.com/512/1828/1828884.png"
-              className="w-20 mx-auto mb-4 drop-shadow-[0_0_10px_#9d00ff]"
-              alt="organize"
-            />
-            <h3 className="text-xl font-semibold text-[#d27aff] mb-2 text-center">
-              Organize Easily
-            </h3>
-            <p className="text-gray-300 text-center">
-              Add, edit, delete, and categorize items with a clean and modern
-              interface.
-            </p>
-          </div>
-
-          {/* Card 3 */}
-          <div
-            className="bg-[#0d1218]/40 backdrop-blur-xl p-6 rounded-2xl border border-[#48dbfb]/20 
-                          shadow-[0_0_20px_#48dbfb20] hover:shadow-[0_0_25px_#48dbfb40] transition-all"
-          >
-            <img
-              src="https://cdn-icons-png.flaticon.com/512/3504/3504158.png"
-              className="w-20 mx-auto mb-4 drop-shadow-[0_0_10px_#48dbfb]"
-              alt="notification"
-            />
-            <h3 className="text-xl font-semibold text-[#48dbfb] mb-2 text-center">
-              Stay Notified
-            </h3>
-            <p className="text-gray-300 text-center">
-              Receive alerts for items that are expiring soon so you can use
-              them before it’s too late.
-            </p>
-          </div>
+      {loading ? (
+        <div className="flex flex-col items-center gap-2 mt-20">
+          <div className="w-10 h-10 border-4 border-[#FF3B3B] border-t-transparent rounded-full animate-spin"></div>
+          <p className="text-lg text-gray-300">Scanning your pantry…</p>
         </div>
-      </section>
+      ) : items.length > 0 ? (
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-6xl mx-auto">
+          {items.map((item) => (
+            <Item key={item._id} item={item} onUpdate={fetchExpiring} />
+          ))}
+        </div>
+      ) : (
+        <>
+          {/* No items: Clean message */}
+          <div className="bg-[#0d1117] border border-[#FF3B3B]/40 shadow-[0_0_20px_#FF3B3B40] p-8 rounded-2xl max-w-md mx-auto text-center">
+            <AlertTriangle className="w-12 h-12 text-[#FF3B3B] mx-auto mb-3 drop-shadow-[0_0_8px_#FF3B3B]" />
+            <p className="text-xl font-semibold text-[#FF3B3B]">
+              No items expiring soon
+            </p>
+            <p className="text-sm text-gray-300 mt-1">
+              Great job keeping your pantry updated!
+            </p>
+          </div>
+
+          {/* Example section */}
+          <div className="max-w-xl mx-auto mt-10">
+            <h2 className="text-center text-xl font-semibold text-[#FFA500] mb-4">
+              Example Preview
+            </h2>
+
+            <div className="bg-[#0e131a] border border-[#FFA500]/40 shadow-[0_0_15px_#FFA50060] rounded-2xl p-6 flex flex-col items-center">
+              <h3 className="text-2xl font-bold text-[#FFA500] drop-shadow-[0_0_10px_#FFA500]">
+                Milk Packet
+              </h3>
+              <p className="text-gray-300 mt-2 text-sm">
+                Showing you how items will appear when expiring soon.
+              </p>
+
+              <div className="mt-4 text-center space-y-1">
+                <p className="text-sm">
+                  <span className="font-semibold text-white">Expires:</span>{" "}
+                  <span className="text-[#FF3B3B] font-bold">Tomorrow</span>
+                </p>
+                <p className="text-sm text-gray-400">Category: Dairy</p>
+              </div>
+
+              <button className="mt-5 px-6 py-2 rounded-xl bg-gradient-to-r from-[#FF3B3B] to-[#FFA500] text-white font-semibold shadow-[0_0_10px_#FF3B3B]">
+                Example Only
+              </button>
+            </div>
+          </div>
+        </>
+      )}
     </div>
   );
 }
 
-export default Home;
+export default ExpiringSoon;
