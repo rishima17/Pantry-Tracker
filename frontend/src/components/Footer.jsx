@@ -39,16 +39,8 @@ function Footer() {
                 </Link>
               </li>
               <li>
-                <Link to="/login" className="hover:text-[#00FFE0] transition">
-                  Login
-                </Link>
-              </li>
-              <li>
-                <Link
-                  to="/register"
-                  className="hover:text-[#00FFE0] transition"
-                >
-                  Register
+                <Link to="/profile" className="hover:text-[#00FFE0] transition">
+                  Profile
                 </Link>
               </li>
             </ul>
